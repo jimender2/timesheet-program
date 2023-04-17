@@ -21,6 +21,11 @@ export default function Calendar() {
     let weekStart = startOfWeek(new Date());
     let weekEnd = endOfWeek(weekStart);
 
+    function listEvents() {
+        console.log("listEvents");
+        console.log(events);
+    }
+
     useEffect(() => {
         console.log('test');
         console.log(start);
@@ -112,6 +117,9 @@ export default function Calendar() {
                     </Table>}
                 </div>
             </div>
+            <button onClick={listEvents}>
+                test
+            </button>
         </AuthenticatedTemplate>
     );
     // </ReturnSnippet>
