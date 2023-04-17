@@ -41,7 +41,7 @@ function DateCell(props: CalendarDayRowProps) {
 }
 
 export default function CalendarDayRow(props: CalendarDayRowProps) {
-    const today = new Date();
+    const today = new Date(props.date);
     const rowClass = today.getDay() === props.date.getDay() ? 'table-warning' : '';
 
     if (props.events.length <= 0) {

@@ -32,15 +32,16 @@ export async function getUser(authProvider: AuthCodeMSALBrowserAuthenticationPro
 
 // <GetUserWeekCalendarSnippet>
 export async function getUserWeekCalendar(authProvider: AuthCodeMSALBrowserAuthenticationProvider,
-    timeZone: string): Promise<Event[]> {
+    timeZone: string, date: Date): Promise<Event[]> {
     ensureClient(authProvider);
 
     // Generate startDateTime and endDateTime query params
     // to display a 7-day window
-    const now = new Date();
-    const startDateTime = zonedTimeToUtc(startOfWeek(now), timeZone).toISOString();
-    const endDateTime = zonedTimeToUtc(endOfWeek(now), timeZone).toISOString();
+    const now1 = date;
+    const startDateTime = zonedTimeToUtc(now1, timeZone).toISOString();
+    const endDateTime = zonedTimeToUtc(endOfWeek(now1), timeZone).toISOString();
 
+    console.log(`${startDateTime} ${endDateTime}`);
     // GET /me/calendarview?startDateTime=''&endDateTime=''
     // &$select=subject,organizer,start,end
     // &$orderby=start/dateTime
@@ -54,6 +55,7 @@ export async function getUserWeekCalendar(authProvider: AuthCodeMSALBrowserAuthe
         .top(25)
         .get();
 
+    console.log(response);
     if (response["@odata.nextLink"]) {
         // Presence of the nextLink property indicates more results are available
         // Use a page iterator to get all results
