@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { NavLink as RouterNavLink } from 'react-router-dom';
 import { Table, Form } from 'react-bootstrap';
 import { findIana } from 'windows-iana';
-import { Event } from 'microsoft-graph';
+import { Event, List } from 'microsoft-graph';
 import { AuthenticatedTemplate } from '@azure/msal-react';
 import { add, format, getDay, parseISO } from 'date-fns';
 import { endOfWeek, startOfWeek } from 'date-fns/esm';
@@ -14,16 +14,94 @@ import CalendarDayRow from './CalendarDayRow';
 import './Calendar.css';
 
 export default function Calendar() {
+
+    // constructor function
+    class PDay {
+        //field 
+        day: number;
+        overtimeevents: Array<Object>;
+        regulartimeevents: Array<Object>;
+        overtime: number;
+        regulartime: number;
+
+        //constructor 
+        constructor(day: number) {
+            this.day = day;
+            this.overtimeevents = [];
+            this.regulartimeevents = [];
+            this.overtime = 0.0;
+            this.regulartime = 0.0;
+        }
+
+        //function 
+        disp(): void {
+            console.log("Function displays day is  :   " + this.day)
+        }
+    }
+
+
     const app = useAppContext();
 
     const [events, setEvents] = useState<Event[]>();
     const [start, setStart] = useState('');
+    const [processed, setProcessed] = useState<PDay[]>();
     let weekStart = startOfWeek(new Date());
     let weekEnd = endOfWeek(weekStart);
 
     function listEvents() {
         console.log("listEvents");
         console.log(events);
+
+        let processedEvents = new Array<PDay>();
+
+        processedEvents.push(new PDay(0));
+        processedEvents.push(new PDay(1));
+        processedEvents.push(new PDay(2));
+        processedEvents.push(new PDay(3));
+        processedEvents.push(new PDay(4));
+        processedEvents.push(new PDay(5));
+        processedEvents.push(new PDay(6));
+
+
+        // loop through events
+        if (events != null) {
+            for (let event of events) {
+                console.log(event);
+                let startDateTime = event.start?.dateTime;
+                let endDateTime = event.end?.dateTime;
+                let eventName = event?.subject;
+                if (startDateTime != null && startDateTime != undefined && endDateTime != null && endDateTime != undefined && eventName != null && eventName != undefined) {
+                    // only get the event name (proj number and then action).  Must be in format "1234 - 123"
+                    var str = eventName,
+                        delimiter = ' ',
+                        start = 3,
+                        tokens = str.split(delimiter).slice(start),
+                        result = tokens.join(delimiter);
+
+                    // To get the substring BEFORE the nth occurence
+                    var tokens2 = str.split(delimiter).slice(0, start),
+                        nameOfEntry = tokens2.join(delimiter);
+
+                    let date = new Date(startDateTime);
+                    let day = new Date(date).getDay();
+                    // get the length of the event
+                    let duration = new Date(endDateTime).getTime() - new Date(startDateTime).getTime();
+                    // convert from milliseconds to hours
+                    let lengthOfEvent = duration / 1000 / 60 / 60;
+                    console.log(duration);
+                    let currenttime = processedEvents[day].regulartime
+                    if (currenttime + lengthOfEvent <= 8.0) {
+                        processedEvents[day].regulartime = currenttime + lengthOfEvent
+                        processedEvents[day].regulartimeevents.push({ "name": nameOfEntry, "duration": lengthOfEvent });
+                    }
+                }
+            }
+        }
+
+        console.log(processedEvents);
+        setProcessed(processedEvents);
+
+
     }
 
     useEffect(() => {
