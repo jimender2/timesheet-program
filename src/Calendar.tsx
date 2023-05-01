@@ -25,16 +25,6 @@ export default function Calendar() {
         saturday = 6
     }
 
-    enum odays {
-        osunday = 0,
-        omonday = 1,
-        otuesday = 2,
-        owednesday = 3,
-        othursday = 4,
-        ofriday = 5,
-        osaturday = 6
-    }
-
     // constructor function
     class PDay {
         //field 
@@ -78,13 +68,6 @@ export default function Calendar() {
         thursday: number;
         friday: number;
         saturday: number;
-        osunday: number;
-        omonday: number;
-        otuesday: number;
-        owednesday: number;
-        othursday: number;
-        ofriday: number;
-        osaturday: number;
 
         constructor(project: string) {
             this.project = project;
@@ -95,13 +78,6 @@ export default function Calendar() {
             this.thursday = 0;
             this.friday = 0;
             this.saturday = 0;
-            this.osunday = 0;
-            this.omonday = 0;
-            this.otuesday = 0;
-            this.owednesday = 0;
-            this.othursday = 0;
-            this.ofriday = 0;
-            this.osaturday = 0;
 
         }
     }
@@ -113,6 +89,8 @@ export default function Calendar() {
     const [start, setStart] = useState('');
     const [processed, setProcessed] = useState<PDay[]>();
     const [processedCalendar, setProcessedCalendar] = useState<Cal[]>();
+    const [processedCalendarO, setProcessedCalendarO] = useState<Cal[]>();
+
     let weekStart = startOfWeek(new Date());
     // let weekEnd = endOfWeek(weekStart);
 
@@ -180,6 +158,7 @@ export default function Calendar() {
             }
 
             let calculateCal: { [project: string]: Cal; } = {};
+            let calculateCalO: { [project: string]: Cal; } = {};
             // loop through all processedevents
             for (let day of processedEvents) {
                 // console.log("f");
@@ -224,37 +203,37 @@ export default function Calendar() {
                 }
 
                 for (let event of day.overtimeevents) {
-                    if (!(event.name in calculateCal)) {
+                    if (!(event.name in calculateCalO)) {
                         if (dayValue == 0) {
-                            calculateCal[event.name] = new Cal(event.name);
+                            calculateCalO[event.name] = new Cal(event.name);
                         } else if (dayValue == 1) {
-                            calculateCal[event.name] = new Cal(event.name);
+                            calculateCalO[event.name] = new Cal(event.name);
                         } else if (dayValue == 2) {
-                            calculateCal[event.name] = new Cal(event.name);
+                            calculateCalO[event.name] = new Cal(event.name);
                         } else if (dayValue == 3) {
-                            calculateCal[event.name] = new Cal(event.name);
+                            calculateCalO[event.name] = new Cal(event.name);
                         } else if (dayValue == 4) {
-                            calculateCal[event.name] = new Cal(event.name);
+                            calculateCalO[event.name] = new Cal(event.name);
                         } else if (dayValue == 5) {
-                            calculateCal[event.name] = new Cal(event.name);
+                            calculateCalO[event.name] = new Cal(event.name);
                         } else if (dayValue == 6) {
-                            calculateCal[event.name] = new Cal(event.name);
+                            calculateCalO[event.name] = new Cal(event.name);
                         }
                     }
                     if (dayValue == 0) {
-                        calculateCal[event.name].osunday = calculateCal[event.name].osunday + event.duration;
+                        calculateCalO[event.name].sunday = calculateCalO[event.name].sunday + event.duration;
                     } else if (dayValue == 1) {
-                        calculateCal[event.name].omonday = calculateCal[event.name].omonday + event.duration;
+                        calculateCalO[event.name].monday = calculateCalO[event.name].monday + event.duration;
                     } else if (dayValue == 2) {
-                        calculateCal[event.name].otuesday = calculateCal[event.name].otuesday + event.duration;
+                        calculateCalO[event.name].tuesday = calculateCalO[event.name].tuesday + event.duration;
                     } else if (dayValue == 3) {
-                        calculateCal[event.name].owednesday = calculateCal[event.name].owednesday + event.duration;
+                        calculateCalO[event.name].wednesday = calculateCalO[event.name].wednesday + event.duration;
                     } else if (dayValue == 4) {
-                        calculateCal[event.name].othursday = calculateCal[event.name].othursday + event.duration;
+                        calculateCalO[event.name].thursday = calculateCalO[event.name].thursday + event.duration;
                     } else if (dayValue == 5) {
-                        calculateCal[event.name].ofriday = calculateCal[event.name].ofriday + event.duration;
+                        calculateCalO[event.name].friday = calculateCalO[event.name].friday + event.duration;
                     } else if (dayValue == 6) {
-                        calculateCal[event.name].osaturday = calculateCal[event.name].osaturday + event.duration;
+                        calculateCalO[event.name].saturday = calculateCalO[event.name].saturday + event.duration;
                     }
                 }
 
@@ -262,6 +241,7 @@ export default function Calendar() {
             }
 
             setProcessedCalendar(Object.values(calculateCal));
+            setProcessedCalendarO(Object.values(calculateCalO));
             console.log(Object.values(calculateCal));
         }
 
@@ -360,16 +340,66 @@ export default function Calendar() {
                         </tbody>
                     </Table>}
                 </div>
+                <h1>Regular Time</h1>
                 <div className="table-responsive">
-                    {processed && <Table size="sm">
+                    {processedCalendar && <Table size="sm">
                         <thead>
                             <tr>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Event</th>
+                                <th>Project</th>
+                                <th>Sunday</th>
+                                <th>Monday</th>
+                                <th>Tuesday</th>
+                                <th>Wednesday</th>
+                                <th>Thursday</th>
+                                <th>Friday</th>
+                                <th>Saturday</th>
                             </tr>
                         </thead>
                         <tbody>
+
+                            {processedCalendar.map((proj) => (
+                                <tr>
+                                    <td>{proj.project}</td>
+                                    <td>{proj.sunday}</td>
+                                    <td>{proj.monday}</td>
+                                    <td>{proj.tuesday}</td>
+                                    <td>{proj.wednesday}</td>
+                                    <td>{proj.thursday}</td>
+                                    <td>{proj.friday}</td>
+                                    <td>{proj.saturday}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>}
+                </div>
+                <h1>OverTime</h1>
+                <div className="table-responsive">
+                    {processedCalendarO && <Table size="sm">
+                        <thead>
+                            <tr>
+                                <th>Project</th>
+                                <th>Sunday</th>
+                                <th>Monday</th>
+                                <th>Tuesday</th>
+                                <th>Wednesday</th>
+                                <th>Thursday</th>
+                                <th>Friday</th>
+                                <th>Saturday</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {processedCalendarO.map((proj) => (
+                                <tr>
+                                    <td>{proj.project}</td>
+                                    <td>{proj.sunday}</td>
+                                    <td>{proj.monday}</td>
+                                    <td>{proj.tuesday}</td>
+                                    <td>{proj.wednesday}</td>
+                                    <td>{proj.thursday}</td>
+                                    <td>{proj.friday}</td>
+                                    <td>{proj.saturday}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </Table>}
                 </div>
