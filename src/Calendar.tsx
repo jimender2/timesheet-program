@@ -160,27 +160,18 @@ export default function Calendar() {
                     let currenttime = processedEvents[day].regulartime
                     let currentOvertime = processedEvents[day].overtime;
                     if (currenttime + lengthOfEvent <= 8.0) {
-                        console.log("go into first");
                         processedEvents[day].regulartime = currenttime + lengthOfEvent
                         processedEvents[day].regulartimeevents.push(new CalEvent(nameOfEntry, lengthOfEvent));
                     } else if (currenttime + lengthOfEvent > 8.0) {
-                        console.log("go into second");
-
                         let addToOvertime = (currenttime + lengthOfEvent) % 8.0;
                         let addToRegulartime = lengthOfEvent - addToOvertime;
 
-                        console.log(addToRegulartime);
-                        console.log(addToOvertime);
-
-                        console.log(currenttime);
-                        console.log(currentOvertime)
                         processedEvents[day].regulartime = currenttime + addToRegulartime;
                         processedEvents[day].regulartimeevents.push(new CalEvent(nameOfEntry, addToRegulartime));
 
                         processedEvents[day].overtime = currentOvertime + addToOvertime;
                         processedEvents[day].overtimeevents.push(new CalEvent(nameOfEntry, addToOvertime));
                     } else {
-                        console.log("go into third");
                         let addToOvertime = lengthOfEvent;
                         processedEvents[day].overtime = currentOvertime + addToOvertime;
                         processedEvents[day].overtimeevents.push(new CalEvent(nameOfEntry, addToOvertime));
@@ -271,7 +262,6 @@ export default function Calendar() {
             }
 
             setProcessedCalendar(Object.values(calculateCal));
-            console.log("fuck");
             console.log(Object.values(calculateCal));
         }
 
@@ -282,7 +272,6 @@ export default function Calendar() {
     }
 
     useEffect(() => {
-        console.log('test');
         console.log(start);
         // old code example console.log(weekStart);
         weekStart = startOfWeek((start == null) ? new Date() : new Date(start));
