@@ -31,7 +31,7 @@ export default function NavBar() {
     return (
         <Navbar bg="dark" variant="dark" expand="md" fixed="top">
             <Container>
-                <Navbar.Brand href="/">React Graph Tutorial</Navbar.Brand>
+                <Navbar.Brand href="/">Timesheet Calculator</Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse>
                     <Nav className="me-auto" navbar>
@@ -45,11 +45,6 @@ export default function NavBar() {
                         </AuthenticatedTemplate>
                     </Nav>
                     <Nav className="ms-auto align-items-center" navbar>
-                        <NavItem>
-                            <Nav.Link href="https://developer.microsoft.com/graph/docs/concepts/overview" target="_blank">
-                                Docs
-                            </Nav.Link>
-                        </NavItem>
                         <AuthenticatedTemplate>
                             <NavDropdown title={<UserAvatar user={user} />} id="user-dropdown" align="end">
                                 <h5 className="dropdown-item-text mb-0">{user.displayName}</h5>
