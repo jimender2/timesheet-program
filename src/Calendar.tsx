@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 import { NavLink as RouterNavLink } from 'react-router-dom';
 import { Table, Form } from 'react-bootstrap';
 import { findIana } from 'windows-iana';
-import { Event, List } from 'microsoft-graph';
+import { Event } from 'microsoft-graph';
 import { AuthenticatedTemplate } from '@azure/msal-react';
-import { add, format, getDay, parseISO } from 'date-fns';
-import { endOfWeek, startOfWeek } from 'date-fns/esm';
+import { add, getDay, parseISO } from 'date-fns';
+import { startOfWeek } from 'date-fns/esm';
 
 import { getUserWeekCalendar } from './GraphService';
 import { useAppContext } from './AppContext';
@@ -14,16 +14,6 @@ import CalendarDayRow from './CalendarDayRow';
 import './Calendar.css';
 
 export default function Calendar() {
-
-    enum days {
-        sunday = 0,
-        monday = 1,
-        tuesday = 2,
-        wednesday = 3,
-        thursday = 4,
-        friday = 5,
-        saturday = 6
-    }
 
     // constructor function
     class PDay {
@@ -87,11 +77,11 @@ export default function Calendar() {
 
     const [events, setEvents] = useState<Event[]>();
     const [start, setStart] = useState('');
-    const [processed, setProcessed] = useState<PDay[]>();
+    // const [processed, setProcessed] = useState<PDay[]>();
     const [processedCalendar, setProcessedCalendar] = useState<Cal[]>();
     const [processedCalendarO, setProcessedCalendarO] = useState<Cal[]>();
 
-    let weekStart = startOfWeek(new Date());
+    // let weekStart = startOfWeek(new Date());
     // let weekEnd = endOfWeek(weekStart);
 
     function listEvents() {
@@ -116,13 +106,15 @@ export default function Calendar() {
                 let startDateTime = event.start?.dateTime;
                 let endDateTime = event.end?.dateTime;
                 let eventName = event?.subject;
-                if (startDateTime != null && startDateTime != undefined && endDateTime != null && endDateTime != undefined && eventName != null && eventName != undefined) {
+                if (startDateTime !== null && startDateTime !== undefined && endDateTime !== null && endDateTime !== undefined && eventName !== null && eventName !== undefined) {
                     // only get the event name (proj number and then action).  Must be in format "1234 - 123"
                     let str = eventName,
                         delimiter = ' ',
                         start = 3,
                         tokens = str.split(delimiter).slice(start),
                         result = tokens.join(delimiter);
+
+                    console.log(result);
 
                     // To get the substring BEFORE the nth occurence
                     let tokens2 = str.split(delimiter).slice(0, start),
@@ -167,35 +159,35 @@ export default function Calendar() {
                 let dayValue = day.day;
                 for (let event of day.regulartimeevents) {
                     if (!(event.name in calculateCal)) {
-                        if (dayValue == 0) {
+                        if (dayValue === 0) {
                             calculateCal[event.name] = new Cal(event.name);
-                        } else if (dayValue == 1) {
+                        } else if (dayValue === 1) {
                             calculateCal[event.name] = new Cal(event.name);
-                        } else if (dayValue == 2) {
+                        } else if (dayValue === 2) {
                             calculateCal[event.name] = new Cal(event.name);
-                        } else if (dayValue == 3) {
+                        } else if (dayValue === 3) {
                             calculateCal[event.name] = new Cal(event.name);
-                        } else if (dayValue == 4) {
+                        } else if (dayValue === 4) {
                             calculateCal[event.name] = new Cal(event.name);
-                        } else if (dayValue == 5) {
+                        } else if (dayValue === 5) {
                             calculateCal[event.name] = new Cal(event.name);
-                        } else if (dayValue == 6) {
+                        } else if (dayValue === 6) {
                             calculateCal[event.name] = new Cal(event.name);
                         }
                     }
-                    if (dayValue == 0) {
+                    if (dayValue === 0) {
                         calculateCal[event.name].sunday = calculateCal[event.name].sunday + event.duration;
-                    } else if (dayValue == 1) {
+                    } else if (dayValue === 1) {
                         calculateCal[event.name].monday = calculateCal[event.name].monday + event.duration;
-                    } else if (dayValue == 2) {
+                    } else if (dayValue === 2) {
                         calculateCal[event.name].tuesday = calculateCal[event.name].tuesday + event.duration;
-                    } else if (dayValue == 3) {
+                    } else if (dayValue === 3) {
                         calculateCal[event.name].wednesday = calculateCal[event.name].wednesday + event.duration;
-                    } else if (dayValue == 4) {
+                    } else if (dayValue === 4) {
                         calculateCal[event.name].thursday = calculateCal[event.name].thursday + event.duration;
-                    } else if (dayValue == 5) {
+                    } else if (dayValue === 5) {
                         calculateCal[event.name].friday = calculateCal[event.name].friday + event.duration;
-                    } else if (dayValue == 6) {
+                    } else if (dayValue === 6) {
                         calculateCal[event.name].saturday = calculateCal[event.name].saturday + event.duration;
                     }
 
@@ -204,35 +196,35 @@ export default function Calendar() {
 
                 for (let event of day.overtimeevents) {
                     if (!(event.name in calculateCalO)) {
-                        if (dayValue == 0) {
+                        if (dayValue === 0) {
                             calculateCalO[event.name] = new Cal(event.name);
-                        } else if (dayValue == 1) {
+                        } else if (dayValue === 1) {
                             calculateCalO[event.name] = new Cal(event.name);
-                        } else if (dayValue == 2) {
+                        } else if (dayValue === 2) {
                             calculateCalO[event.name] = new Cal(event.name);
-                        } else if (dayValue == 3) {
+                        } else if (dayValue === 3) {
                             calculateCalO[event.name] = new Cal(event.name);
-                        } else if (dayValue == 4) {
+                        } else if (dayValue === 4) {
                             calculateCalO[event.name] = new Cal(event.name);
-                        } else if (dayValue == 5) {
+                        } else if (dayValue === 5) {
                             calculateCalO[event.name] = new Cal(event.name);
-                        } else if (dayValue == 6) {
+                        } else if (dayValue === 6) {
                             calculateCalO[event.name] = new Cal(event.name);
                         }
                     }
-                    if (dayValue == 0) {
+                    if (dayValue === 0) {
                         calculateCalO[event.name].sunday = calculateCalO[event.name].sunday + event.duration;
-                    } else if (dayValue == 1) {
+                    } else if (dayValue === 1) {
                         calculateCalO[event.name].monday = calculateCalO[event.name].monday + event.duration;
-                    } else if (dayValue == 2) {
+                    } else if (dayValue === 2) {
                         calculateCalO[event.name].tuesday = calculateCalO[event.name].tuesday + event.duration;
-                    } else if (dayValue == 3) {
+                    } else if (dayValue === 3) {
                         calculateCalO[event.name].wednesday = calculateCalO[event.name].wednesday + event.duration;
-                    } else if (dayValue == 4) {
+                    } else if (dayValue === 4) {
                         calculateCalO[event.name].thursday = calculateCalO[event.name].thursday + event.duration;
-                    } else if (dayValue == 5) {
+                    } else if (dayValue === 5) {
                         calculateCalO[event.name].friday = calculateCalO[event.name].friday + event.duration;
-                    } else if (dayValue == 6) {
+                    } else if (dayValue === 6) {
                         calculateCalO[event.name].saturday = calculateCalO[event.name].saturday + event.duration;
                     }
                 }
@@ -246,7 +238,7 @@ export default function Calendar() {
         }
 
         // console.log(processedEvents);
-        setProcessed(processedEvents);
+        // setProcessed(processedEvents);
 
 
     }
@@ -254,7 +246,7 @@ export default function Calendar() {
     useEffect(() => {
         console.log(start);
         // old code example console.log(weekStart);
-        weekStart = startOfWeek((start == null) ? new Date() : new Date(start));
+        let weekStart = startOfWeek((start === null) ? new Date() : new Date(start));
         // old code example weekEnd = endOfWeek(weekStart);
         console.log("jim");
         console.log(weekStart);
@@ -262,7 +254,7 @@ export default function Calendar() {
             if (app.user) {
                 try {
                     const ianaTimeZones = findIana(app.user?.timeZone!);
-                    const events = await getUserWeekCalendar(app.authProvider!, ianaTimeZones[0].valueOf(), startOfWeek((start == null) ? new Date() : new Date(start)));
+                    const events = await getUserWeekCalendar(app.authProvider!, ianaTimeZones[0].valueOf(), startOfWeek((start === null) ? new Date() : new Date(start)));
                     console.log(events);
                     setEvents(events);
                 } catch (err) {
@@ -273,6 +265,7 @@ export default function Calendar() {
         };
 
         loadEvents();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [start]);
 
     useEffect(() => {
@@ -281,7 +274,7 @@ export default function Calendar() {
     }, [events]);
 
     // <ReturnSnippet>
-    // var weekStart = startOfWeek((start == null) ? new Date(start) : new Date());
+    // var weekStart = startOfWeek((start === null) ? new Date(start) : new Date());
     // var weekEnd = endOfWeek(weekStart);
 
     return (
@@ -310,7 +303,7 @@ export default function Calendar() {
                         </thead>
                         <tbody>
                             <CalendarDayRow
-                                date={startOfWeek((start == null) ? new Date() : new Date(start))}
+                                date={startOfWeek((start === null) ? new Date() : new Date(start))}
                                 timeFormat={app.user?.timeFormat!}
                                 events={events!.filter(event => getDay(parseISO(event.start?.dateTime!)) === 0)} />
                             <CalendarDayRow
