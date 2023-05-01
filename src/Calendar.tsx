@@ -273,7 +273,6 @@ export default function Calendar() {
         console.log(events);
     }, [events]);
 
-    // <ReturnSnippet>
     // var weekStart = startOfWeek((start === null) ? new Date(start) : new Date());
     // var weekEnd = endOfWeek(weekStart);
 
@@ -398,9 +397,8 @@ export default function Calendar() {
                 </div>
             </div>
             <button onClick={listEvents}>
-                test
+                Calculate Timesheet
             </button>
         </AuthenticatedTemplate>
     );
-    // </ReturnSnippet>
 }
