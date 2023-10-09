@@ -22,7 +22,7 @@ export default function Welcome() {
                     </div>
                 </AuthenticatedTemplate>
                 <UnauthenticatedTemplate>
-                    <Button color="primary" onClick={app.signIn!}>Click here to sign in</Button>
+                    <Button color="primary" onClick={app.signIn}>Click here to sign in</Button>
                 </UnauthenticatedTemplate>
             </Container>
         </div>
