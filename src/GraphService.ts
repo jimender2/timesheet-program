@@ -46,7 +46,7 @@ export async function getUserWeekCalendar(authProvider: AuthCodeMSALBrowserAuthe
     // &$select=subject,organizer,start,end
     // &$orderby=start/dateTime
     // &$top=50
-    var response: PageCollection = await graphClient!
+    let response: PageCollection = await graphClient!
         .api('/me/calendarview')
         .header('Prefer', `outlook.timezone="${timeZone}"`)
         .query({ startDateTime: startDateTime, endDateTime: endDateTime })
@@ -59,15 +59,15 @@ export async function getUserWeekCalendar(authProvider: AuthCodeMSALBrowserAuthe
     if (response["@odata.nextLink"]) {
         // Presence of the nextLink property indicates more results are available
         // Use a page iterator to get all results
-        var events: Event[] = [];
+        let events: Event[] = [];
 
         // Must include the time zone header in page
         // requests too
-        var options: GraphRequestOptions = {
+        let options: GraphRequestOptions = {
             headers: { 'Prefer': `outlook.timezone="${timeZone}"` }
         };
 
-        var pageIterator = new PageIterator(graphClient!, response, (event) => {
+        let pageIterator = new PageIterator(graphClient!, response, (event) => {
             events.push(event);
             return true;
         }, options);
