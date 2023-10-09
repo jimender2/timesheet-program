@@ -77,12 +77,8 @@ export default function Calendar() {
 
     const [events, setEvents] = useState<Event[]>();
     const [start, setStart] = useState('');
-    // const [processed, setProcessed] = useState<PDay[]>();
     const [processedCalendar, setProcessedCalendar] = useState<Cal[]>();
     const [processedCalendarO, setProcessedCalendarO] = useState<Cal[]>();
-
-    // let weekStart = startOfWeek(new Date());
-    // let weekEnd = endOfWeek(weekStart);
 
     function listEvents() {
         console.log("listEvents");
@@ -153,28 +149,13 @@ export default function Calendar() {
             let calculateCalO: { [project: string]: Cal; } = {};
             // loop through all processedevents
             for (let day of processedEvents) {
-                // console.log("f");
-                // console.log(day);
                 // loop through all normal events
                 let dayValue = day.day;
                 for (let event of day.regulartimeevents) {
                     if (!(event.name in calculateCal)) {
-                        if (dayValue === 0) {
-                            calculateCal[event.name] = new Cal(event.name);
-                        } else if (dayValue === 1) {
-                            calculateCal[event.name] = new Cal(event.name);
-                        } else if (dayValue === 2) {
-                            calculateCal[event.name] = new Cal(event.name);
-                        } else if (dayValue === 3) {
-                            calculateCal[event.name] = new Cal(event.name);
-                        } else if (dayValue === 4) {
-                            calculateCal[event.name] = new Cal(event.name);
-                        } else if (dayValue === 5) {
-                            calculateCal[event.name] = new Cal(event.name);
-                        } else if (dayValue === 6) {
-                            calculateCal[event.name] = new Cal(event.name);
-                        }
+                        calculateCal[event.name] = new Cal(event.name);
                     }
+
                     if (dayValue === 0) {
                         calculateCal[event.name].sunday = calculateCal[event.name].sunday + event.duration;
                     } else if (dayValue === 1) {
@@ -196,22 +177,9 @@ export default function Calendar() {
 
                 for (let event of day.overtimeevents) {
                     if (!(event.name in calculateCalO)) {
-                        if (dayValue === 0) {
-                            calculateCalO[event.name] = new Cal(event.name);
-                        } else if (dayValue === 1) {
-                            calculateCalO[event.name] = new Cal(event.name);
-                        } else if (dayValue === 2) {
-                            calculateCalO[event.name] = new Cal(event.name);
-                        } else if (dayValue === 3) {
-                            calculateCalO[event.name] = new Cal(event.name);
-                        } else if (dayValue === 4) {
-                            calculateCalO[event.name] = new Cal(event.name);
-                        } else if (dayValue === 5) {
-                            calculateCalO[event.name] = new Cal(event.name);
-                        } else if (dayValue === 6) {
-                            calculateCalO[event.name] = new Cal(event.name);
-                        }
+                        calculateCalO[event.name] = new Cal(event.name);
                     }
+
                     if (dayValue === 0) {
                         calculateCalO[event.name].sunday = calculateCalO[event.name].sunday + event.duration;
                     } else if (dayValue === 1) {
@@ -237,10 +205,6 @@ export default function Calendar() {
             console.log(Object.values(calculateCal));
         }
 
-        // console.log(processedEvents);
-        // setProcessed(processedEvents);
-
-
     }
 
     useEffect(() => {
@@ -248,7 +212,6 @@ export default function Calendar() {
         // old code example console.log(weekStart);
         let weekStart = startOfWeek((start === null) ? new Date() : new Date(start));
         // old code example weekEnd = endOfWeek(weekStart);
-        console.log("jim");
         console.log(weekStart);
         const loadEvents = async () => {
             if (app.user) {
@@ -273,8 +236,6 @@ export default function Calendar() {
         console.log(events);
     }, [events]);
 
-    // var weekStart = startOfWeek((start === null) ? new Date(start) : new Date());
-    // var weekEnd = endOfWeek(weekStart);
 
     return (
         <AuthenticatedTemplate>
