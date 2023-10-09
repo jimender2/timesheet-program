@@ -153,22 +153,9 @@ export default function Calendar() {
                 let dayValue = day.day;
                 for (let event of day.regulartimeevents) {
                     if (!(event.name in calculateCal)) {
-                        if (dayValue === 0) {
-                            calculateCal[event.name] = new Cal(event.name);
-                        } else if (dayValue === 1) {
-                            calculateCal[event.name] = new Cal(event.name);
-                        } else if (dayValue === 2) {
-                            calculateCal[event.name] = new Cal(event.name);
-                        } else if (dayValue === 3) {
-                            calculateCal[event.name] = new Cal(event.name);
-                        } else if (dayValue === 4) {
-                            calculateCal[event.name] = new Cal(event.name);
-                        } else if (dayValue === 5) {
-                            calculateCal[event.name] = new Cal(event.name);
-                        } else if (dayValue === 6) {
-                            calculateCal[event.name] = new Cal(event.name);
-                        }
+                        calculateCal[event.name] = new Cal(event.name);
                     }
+
                     if (dayValue === 0) {
                         calculateCal[event.name].sunday = calculateCal[event.name].sunday + event.duration;
                     } else if (dayValue === 1) {
@@ -190,22 +177,9 @@ export default function Calendar() {
 
                 for (let event of day.overtimeevents) {
                     if (!(event.name in calculateCalO)) {
-                        if (dayValue === 0) {
-                            calculateCalO[event.name] = new Cal(event.name);
-                        } else if (dayValue === 1) {
-                            calculateCalO[event.name] = new Cal(event.name);
-                        } else if (dayValue === 2) {
-                            calculateCalO[event.name] = new Cal(event.name);
-                        } else if (dayValue === 3) {
-                            calculateCalO[event.name] = new Cal(event.name);
-                        } else if (dayValue === 4) {
-                            calculateCalO[event.name] = new Cal(event.name);
-                        } else if (dayValue === 5) {
-                            calculateCalO[event.name] = new Cal(event.name);
-                        } else if (dayValue === 6) {
-                            calculateCalO[event.name] = new Cal(event.name);
-                        }
+                        calculateCalO[event.name] = new Cal(event.name);
                     }
+
                     if (dayValue === 0) {
                         calculateCalO[event.name].sunday = calculateCalO[event.name].sunday + event.duration;
                     } else if (dayValue === 1) {
