@@ -17,12 +17,12 @@ export default function Welcome() {
                 </p>
                 <AuthenticatedTemplate>
                     <div>
-                        <h4>Welcome {app.user?.displayName || ''}!</h4>
+                        <h4>Welcome {app.user?.displayName ?? ''}!</h4>
                         <p>Use the navigation bar at the top of the page to go to the calendar page.</p>
                     </div>
                 </AuthenticatedTemplate>
                 <UnauthenticatedTemplate>
-                    <Button color="primary" onClick={app.signIn!}>Click here to sign in</Button>
+                    <Button color="primary" onClick={app.signIn}>Click here to sign in</Button>
                 </UnauthenticatedTemplate>
             </Container>
         </div>

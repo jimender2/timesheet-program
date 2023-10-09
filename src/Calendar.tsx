@@ -265,31 +265,31 @@ export default function Calendar() {
                             <CalendarDayRow
                                 date={startOfWeek((start === null) ? new Date() : new Date(start))}
                                 timeFormat={app.user?.timeFormat!}
-                                events={events!.filter(event => getDay(parseISO(event.start?.dateTime!)) === 0)} />
+                                events={events.filter(event => getDay(parseISO(event.start?.dateTime!)) === 0)} />
                             <CalendarDayRow
                                 date={add(startOfWeek((start == null) ? new Date() : new Date(start)), { days: 1 })}
                                 timeFormat={app.user?.timeFormat!}
-                                events={events!.filter(event => getDay(parseISO(event.start?.dateTime!)) === 1)} />
+                                events={events.filter(event => getDay(parseISO(event.start?.dateTime!)) === 1)} />
                             <CalendarDayRow
                                 date={add(startOfWeek((start == null) ? new Date() : new Date(start)), { days: 2 })}
                                 timeFormat={app.user?.timeFormat!}
-                                events={events!.filter(event => getDay(parseISO(event.start?.dateTime!)) === 2)} />
+                                events={events.filter(event => getDay(parseISO(event.start?.dateTime!)) === 2)} />
                             <CalendarDayRow
                                 date={add(startOfWeek((start == null) ? new Date() : new Date(start)), { days: 3 })}
                                 timeFormat={app.user?.timeFormat!}
-                                events={events!.filter(event => getDay(parseISO(event.start?.dateTime!)) === 3)} />
+                                events={events.filter(event => getDay(parseISO(event.start?.dateTime!)) === 3)} />
                             <CalendarDayRow
                                 date={add(startOfWeek((start == null) ? new Date() : new Date(start)), { days: 4 })}
                                 timeFormat={app.user?.timeFormat!}
-                                events={events!.filter(event => getDay(parseISO(event.start?.dateTime!)) === 4)} />
+                                events={events.filter(event => getDay(parseISO(event.start?.dateTime!)) === 4)} />
                             <CalendarDayRow
                                 date={add(startOfWeek((start == null) ? new Date() : new Date(start)), { days: 5 })}
                                 timeFormat={app.user?.timeFormat!}
-                                events={events!.filter(event => getDay(parseISO(event.start?.dateTime!)) === 5)} />
+                                events={events.filter(event => getDay(parseISO(event.start?.dateTime!)) === 5)} />
                             <CalendarDayRow
                                 date={add(startOfWeek((start == null) ? new Date() : new Date(start)), { days: 6 })}
                                 timeFormat={app.user?.timeFormat!}
-                                events={events!.filter(event => getDay(parseISO(event.start?.dateTime!)) === 6)} />
+                                events={events.filter(event => getDay(parseISO(event.start?.dateTime!)) === 6)} />
                         </tbody>
                     </Table>}
                 </div>

@@ -17,7 +17,7 @@ type AppProps = {
 };
 // </AppPropsSnippet>
 
-export default function App({ pca }: AppProps): JSX.Element {
+export default function App({ pca }: AppProps): React.JSX.Element {
   return (
     <MsalProvider instance={pca}>
       <ProvideAppContext>
