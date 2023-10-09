@@ -101,10 +101,10 @@ function useProvideAppContext() {
                         const user = await getUser(authProvider);
 
                         setUser({
-                            displayName: user.displayName || '',
-                            email: user.mail || user.userPrincipalName || '',
-                            timeFormat: user.mailboxSettings?.timeFormat || 'h:mm a',
-                            timeZone: user.mailboxSettings?.timeZone || 'UTC'
+                            displayName: user.displayName ?? '',
+                            email: (user.mail ?? user.userPrincipalName) ?? '',
+                            timeFormat: user.mailboxSettings?.timeFormat ?? 'h:mm a',
+                            timeZone: user.mailboxSettings?.timeZone ?? 'UTC'
                         });
                     }
                 } catch (err: any) {
@@ -127,10 +127,10 @@ function useProvideAppContext() {
         const user = await getUser(authProvider);
 
         setUser({
-            displayName: user.displayName || '',
-            email: user.mail || user.userPrincipalName || '',
-            timeFormat: user.mailboxSettings?.timeFormat || '',
-            timeZone: user.mailboxSettings?.timeZone || 'UTC'
+            displayName: user.displayName ?? '',
+            email: user.mail ?? user.userPrincipalName ?? '',
+            timeFormat: user.mailboxSettings?.timeFormat ?? '',
+            timeZone: user.mailboxSettings?.timeZone ?? 'UTC'
         });
     };
     // </SignInSnippet>
